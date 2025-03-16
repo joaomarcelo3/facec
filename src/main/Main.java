@@ -1,6 +1,5 @@
 package main;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,7 +9,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		Scanner scanner = new Scanner(System.in); // set the general scanner
+		Scanner scanner = new Scanner(System.in);
 		Arquivo arquivo = new Arquivo();
 		
 		// main try-catch
@@ -19,11 +18,9 @@ public class Main {
 			// get the file path from user
 			System.out.print("file path: ");
 			String pathFile = scanner.nextLine();
-			scanner.close();
-
-			// set the file reader
-			// Scanner reader = new Scanner(new FileReader(pathName));		
-			String pathReport = arquivo.caminhoArquivo(pathFile);
+			
+			// set the file reader	
+			String leitor = arquivo.caminhoArquivo(pathFile);
 			
 			arquivo.leitorArquivo();
 			
@@ -31,25 +28,19 @@ public class Main {
 			arquivo.setArquivo();
 	
 			// print the file info			
-			arquivo.toString();
+			System.out.println(arquivo.toString());
 
 			// create the report file
-			File report = new File(pathReport);
-			if (report.createNewFile()) {
-				System.out.println("\nreport file created");
-			} else {
-				System.out.println("\nreport file will be overwrite");
-			}
+			String pathReport = leitor + "\\report.txt";
+			Report report = new Report();
+			report.caminhoReport(pathReport);
 
 			// write the report file
 			FileWriter writer = new FileWriter(pathReport);
 			writer.write(arquivo.toString());
-			
-
-			// print success message
-			System.out.println("report generated");
-
+		
 			// close objects
+			scanner.close();
 			writer.close();
 
 		}catch (FileNotFoundException e) {

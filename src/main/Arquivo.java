@@ -13,8 +13,8 @@ public class Arquivo {
 
     String nomeDoArquivo;
     String caminhoDoArquivo;
-    String ehLegivel;
-    String ehEditavel;
+    boolean ehLegivel;
+    boolean ehEditavel;
     String tamanhoDoArquivo;
   
     public String caminhoArquivo(String nomeArquivo){
@@ -40,19 +40,21 @@ public class Arquivo {
         DecimalFormat df = new DecimalFormat("#.##");
         double contentSize = arquivo.length() / Math.pow(1024, 2);
 
-        System.out.println("informações do arquivo");
-        this.nomeDoArquivo = "name: " + arquivo.getName();
-        this.caminhoDoArquivo = "path: " + arquivo.getAbsolutePath();
-        this.ehLegivel = "readable: " + arquivo.canRead();
-        this.ehEditavel = "writeable: " + arquivo.canWrite();
-        this.tamanhoDoArquivo = "size: " + df.format(contentSize) + " MiB";
+        this.nomeDoArquivo = arquivo.getName();
+        this.caminhoDoArquivo =arquivo.getAbsolutePath();
+        this.ehLegivel = arquivo.canRead();
+        this.ehEditavel = arquivo.canWrite();
+        this.tamanhoDoArquivo = df.format(contentSize) + " MiB";
     }
 
     @Override
     public String toString() {
-        return "Arquivo [ nomeDoArquivo=" + nomeDoArquivo
-                + ", caminhoDoArquivo=" + caminhoDoArquivo + ", ehLegivel=" + ehLegivel + ", ehEditavel=" + ehEditavel
-                + ", tamanhoDoArquivo=" + tamanhoDoArquivo + "]";
+        return "Informações do arquivo:\n" +
+                "Nome do arquivo: " + nomeDoArquivo +"\n" +
+                "Caminho do arquivo: " + caminhoDoArquivo +"\n" +
+                "Pode ser lido: " + ehLegivel + "\n" +
+                "Pode ser editado: " + ehEditavel + "\n" +
+                "Tamanho do arquivo: " + tamanhoDoArquivo ;
     } 
 
     
