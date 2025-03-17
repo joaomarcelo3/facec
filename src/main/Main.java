@@ -29,10 +29,13 @@ public class Main {
 			System.out.println("");			
 			System.out.println(arquivo);
 
-			// create the report file
-			String caminhoDorelatorio = arquivo.getArquivo() + "\\report.txt";
+			// create the report folder
 			Relatorio relatorio = new Relatorio();
-			relatorio.caminhoReport(caminhoDorelatorio);
+			relatorio.criarPastaRelatorio();
+
+			// create the report file
+			String caminhoDorelatorio = arquivo.getArquivo() + "\\relatórios\\relatorio.txt";
+			relatorio.gerarRelatorio(caminhoDorelatorio);
 
 			// write the report file
 			FileWriter writer = new FileWriter(caminhoDorelatorio);
