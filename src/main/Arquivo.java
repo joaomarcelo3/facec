@@ -1,41 +1,42 @@
 package main;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.Scanner;
 
 
 public class Arquivo {
 
-    File arquivo;
-    int contador;
+    private File arquivo;
+    private String nomeDoArquivo;
+    private String caminhoDoArquivo;
+    private boolean ehLegivel;
+    private boolean ehEditavel;
+    private String tamanhoDoArquivo;
 
-    String nomeDoArquivo;
-    String caminhoDoArquivo;
-    boolean ehLegivel;
-    boolean ehEditavel;
-    String tamanhoDoArquivo;
-  
-    public String caminhoArquivo(String nomeArquivo){
-
+    public Arquivo(String nomeArquivo){
         this.arquivo = new File(nomeArquivo).getAbsoluteFile();
-        return arquivo.getParent();
+    }
+  
+    public String getArquivo(){
+        return this.arquivo.getParent();
+    }
+
+    public void lerArquivo() throws IOException {
+        FileReader fr = new FileReader(arquivo);
+        BufferedReader br = new BufferedReader(fr);
         
-    }
-
-    public void leitorArquivo() throws FileNotFoundException{
-        Scanner leitor = new Scanner(arquivo);
-
-        System.out.println("Conteúdo do arquivo:");
-        while (leitor.hasNextLine()) {
-            System.out.printf("linha = %d %s\n", ++contador, leitor.nextLine());
+        String linha;
+        System.out.println("Informações do Arquivo:");
+        while((linha = br.readLine()) != null){
+            System.out.println(linha);
         }
-
-        leitor.close();
+        br.close();
     }
 
-    public void setArquivo(){
+    public void carregarInformacoesDoArquivo(){
 
         DecimalFormat df = new DecimalFormat("#.##");
         double contentSize = arquivo.length() / Math.pow(1024, 2);
@@ -49,14 +50,14 @@ public class Arquivo {
 
     @Override
     public String toString() {
-        return "Informações do arquivo:\n" +
-                "Nome do arquivo: " + nomeDoArquivo +"\n" +
-                "Caminho do arquivo: " + caminhoDoArquivo +"\n" +
-                "Pode ser lido: " + ehLegivel + "\n" +
-                "Pode ser editado: " + ehEditavel + "\n" +
-                "Tamanho do arquivo: " + tamanhoDoArquivo ;
+        return String.format(
+            "---------------Relatório do Arquivo---------------\n" +
+            "Nome do arquivo: %s\n" +
+            "Caminho do arquivo: %s\n" +
+            "Pode ser lido: %s\n" +
+            "Pode ser editado: %s\n" +
+            "Tamanho do arquivo: %s\n" + 
+            "--------------------------------------------------",nomeDoArquivo, caminhoDoArquivo, ehLegivel, ehEditavel, tamanhoDoArquivo
+        );
     } 
-
-    
-    
 }

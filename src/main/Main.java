@@ -10,58 +10,49 @@ public class Main {
 	public static void main(String[] args) {
 
 		Scanner scanner = new Scanner(System.in);
-		Arquivo arquivo = new Arquivo();
 		
 		// main try-catch
 		try {
 		
 			// get the file path from user
-			System.out.print("file path: ");
-			String pathFile = scanner.nextLine();
+			System.out.print("Nome do arquivo: ");
+			String nomeDoArquivo = scanner.nextLine();
 			
-			// set the file reader	
-			String leitor = arquivo.caminhoArquivo(pathFile);
-			
-			arquivo.leitorArquivo();
+			// set the file reader
+			Arquivo arquivo = new Arquivo(nomeDoArquivo);
+			arquivo.lerArquivo();
 			
 			// set the file info
-			arquivo.setArquivo();
+			arquivo.carregarInformacoesDoArquivo();
 	
-			// print the file info			
-			System.out.println(arquivo.toString());
+			// print the file info
+			System.out.println("");			
+			System.out.println(arquivo);
 
 			// create the report file
-			String pathReport = leitor + "\\report.txt";
-			Report report = new Report();
-			report.caminhoReport(pathReport);
+			String caminhoDorelatorio = arquivo.getArquivo() + "\\report.txt";
+			Relatorio relatorio = new Relatorio();
+			relatorio.caminhoReport(caminhoDorelatorio);
 
 			// write the report file
-			FileWriter writer = new FileWriter(pathReport);
+			FileWriter writer = new FileWriter(caminhoDorelatorio);
 			writer.write(arquivo.toString());
 		
 			// close objects
-			scanner.close();
 			writer.close();
 
 		}catch (FileNotFoundException e) {
 
 			// print error message
-			System.err.println("error in open content file: " + e.getMessage());
+			System.err.println("erro no arquivo: " + e.getMessage());
 
 		} catch (IOException e) {
 
 			// print error message
-			System.err.println("error in create or write to report file: " + e.getMessage());
+			System.err.println("erro ao criar ou gravar o relatório do arquivo: " + e.getMessage());
+		} finally{
+
+			scanner.close();
 		}
-			
-
 	}
-
 }
-
-
-		
-
-
-
-

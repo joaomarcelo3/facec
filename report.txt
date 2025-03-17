@@ -1,6 +1,7 @@
-Informações do arquivo:
+---------------Relatório do Arquivo---------------
 Nome do arquivo: file.txt
 Caminho do arquivo: C:\joao_marcelo\VisualCode\facec\file.txt
 Pode ser lido: true
 Pode ser editado: true
 Tamanho do arquivo: 0 MiB
+--------------------------------------------------
